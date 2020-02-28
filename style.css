@@ -1,0 +1,28 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  background: rgba(241, 226, 215, 1);
+  display: flex;
+}
+
+#container {
+  width: 75%;
+  height: 75%;
+  margin: auto;
+  background: black;
+  /* Make sure the container has
+  something else than position static */
+  position: relative;
+}
+
+/* To prevent wierd values when clicking
+on the svg instead of the container,
+you can set pointer events none
+on the generated graphics */
+.no-pointer {
+  pointer-events: none;
+}
