@@ -5,7 +5,7 @@ body, html {
 }
 
 body {
-  background: rgba(241, 226, 215, 1);
+  background: black;
   display: flex;
 }
 
@@ -13,7 +13,7 @@ body {
   width: 75%;
   height: 75%;
   margin: auto;
-  background: black;
+  background: #f4625d;
   /* Make sure the container has
   something else than position static */
   position: relative;
