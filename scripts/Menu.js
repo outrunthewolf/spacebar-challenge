@@ -5,6 +5,11 @@ class Menu {
     this.stage = app.stage;
     this.app = app;
     this.menuHolder = new PIXI.Container();
+
+    // this.resources = PIXI.loader.resources
+    // this.loader = PIXI.loader
+    // this.loader.add([{ name: 'light', crossOrigin: '', url: 'images/light_rotate_1.png' }])
+    // //this.loader.load()
   }
 
   render() {
@@ -29,6 +34,14 @@ class Menu {
     gameOverText.x = (menu.width / 2) - (gameOverText.width / 2)
     gameOverText.y = (menu.height / 2) - 80
     menu.addChild(gameOverText);
+
+    // // Lights
+    // var light = new PIXI.Sprite(this.resources.light.texture)
+    // light.y = (menu.height / 2) - 80
+    // light.x = (menu.width / 2)
+    // light.width = 300;
+    // light.height = 400;
+    // menu.addChild(light)
 
     // Play Button
     let playButton = new PIXI.Graphics();

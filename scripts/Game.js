@@ -13,6 +13,7 @@ class Game {
     this.loader.add([{ name: 'hand', crossOrigin: '', url: 'images/hand.png' }])
     this.loader.add([{ name: 'keyboard', crossOrigin: '', url: 'images/keyboard.png' }])
     this.loader.add([{ name: 'title', crossOrigin: '', url: 'images/title.png' }])
+    this.loader.add([{ name: 'light1', crossOrigin: '', url: 'images/light_rotate_1.png' }])
     this.loader.load()
 
     // variables
@@ -100,7 +101,17 @@ class Game {
 
       // Do something fun on every 10
       var resultOfMod = this.score % 10;
-      if (resultOfMod == 0) console.log('AMAZE BALLS')
+      if (resultOfMod == 0) {
+        console.log('AMAZE BALLS')
+
+        // Animate score box every 10 points
+      var originalTitlePos = title.y
+        gsap.to(title, {keyframes: [
+          {y: (originalTitlePos - 45), duration: 0.3},
+          {y: originalTitlePos, duration: 0.3}
+        ], ease: "elastic"});
+
+      }
     }
 
     this.space.release = () => {
