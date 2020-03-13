@@ -1,18 +1,20 @@
 
 // ES6 Class adding a method to the Person prototype
 class Menu {
-  constructor(app) {
+  constructor(app, loader) {
     this.stage = app.stage;
     this.app = app;
     this.menuHolder = new PIXI.Container();
+    this.resources = PIXI.loader.resources
+    this.loader = loader;
+    this.backgroundMusic = null;
 
-    // this.resources = PIXI.loader.resources
-    // this.loader = PIXI.loader
-    // this.loader.add([{ name: 'light', crossOrigin: '', url: 'images/light_rotate_1.png' }])
-    // //this.loader.load()
+    // Add to the PIXI loader
+    this.loader.add('loop2', 'resources/loops/loop2.mp3');
   }
 
   render() {
+    this._loadSound();
     this.stage.addChild(this.menuHolder);
 
     // Background
@@ -84,5 +86,18 @@ class Menu {
 
   destroy() {
     this.menuHolder.destroy(true);
+    this._destroySound();
+  }
+
+  _loadSound() {
+    this.backgroundMusic = this.resources.loop2.sound;
+    this.backgroundMusic.play({
+      loop: true
+    });
+  }
+
+  _destroySound() {
+    this.backgroundMusic.stop();
+    this.backgroundMusic = null;
   }
 }
