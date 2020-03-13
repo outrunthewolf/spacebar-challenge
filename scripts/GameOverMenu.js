@@ -1,14 +1,22 @@
 
 // ES6 Class adding a method to the Person prototype
 class GameOverMenu {
-  constructor(app, score) {
+  constructor(app, loader) {
     this.stage = app.stage;
     this.app = app;
-    this.score = score;
-    this.menuHolder = new PIXI.Container();
+    this.score = 0;
+    this.gameOverNoise = null;
+    this.loader = loader;
+
+    this.resources = PIXI.loader.resources
+    this.loader.add('buzzer', 'resources/buzzer.mp3');
   }
 
-  render() {
+  render(score) {
+    this._loadSound();
+
+    this.score = score;
+    this.menuHolder = new PIXI.Container();
     this.stage.addChild(this.menuHolder);
 
     // Background
@@ -68,6 +76,8 @@ class GameOverMenu {
     buttonText.y = (playButton.height / 2) - (buttonText.height / 2) - 5;
     playButton.addChild(buttonText);
 
+    this.gameOverNoise.play();
+
     var that = this;
     playButton.click = function(e) {
       document.body.dispatchEvent(new CustomEvent("playGame", {
@@ -80,6 +90,15 @@ class GameOverMenu {
   }
 
   destroy() {
-    this.menuHolder.destroy(true);
+    this.menuHolder.destroy();
+    this._destroySound()
+  }
+
+  _loadSound() {
+    this.gameOverNoise= this.resources.buzzer.sound;
+  }
+
+  _destroySound() {
+    this.gameOverNoise = null;
   }
 }

@@ -1,20 +1,23 @@
 
 // ES6 Class adding a method to the Person prototype
 class Game {
-  constructor (app) {
+  constructor (app, loader) {
     this.stage = app.stage
     this.app = app
     this.gameHolder = {}
     this.space = this._keyboardHandler(32)
+    this.backgroundMusic = null;
+    this.successNoise = null;
 
     // load resources
     this.resources = PIXI.loader.resources
-    this.loader = PIXI.loader
+    this.loader = loader
     this.loader.add([{ name: 'hand', crossOrigin: '', url: 'images/hand.png' }])
     this.loader.add([{ name: 'keyboard', crossOrigin: '', url: 'images/keyboard.png' }])
     this.loader.add([{ name: 'title', crossOrigin: '', url: 'images/title.png' }])
     this.loader.add([{ name: 'light1', crossOrigin: '', url: 'images/light_rotate_1.png' }])
-    this.loader.load()
+    this.loader.add('loop3', 'resources/loops/loop3.mp3');
+    this.loader.add('success', 'resources/success.mp3');
 
     // variables
     this.score = 0
@@ -30,6 +33,8 @@ class Game {
   }
 
   render () {
+    this._loadSound();
+
     this.gameHolder = new PIXI.Container()
     this.stage.addChild(this.gameHolder)
 
@@ -102,7 +107,7 @@ class Game {
       // Do something fun on every 10
       var resultOfMod = this.score % 10;
       if (resultOfMod == 0) {
-        console.log('AMAZE BALLS')
+        this.successNoise.play();
 
         // Animate score box every 10 points
       var originalTitlePos = title.y
@@ -133,6 +138,8 @@ class Game {
     // Events
     this.space.press = null;
     this.space.release = null;
+
+    this._destroySound()
   }
 
   _startTimer () {
@@ -209,6 +216,21 @@ class Game {
   }
 
   destroy () {
-    this.gameHolder.destroy()
+    this.gameHolder.destroy();
+    this._destroySound();
+  }
+
+  _loadSound() {
+    this.backgroundMusic = this.resources.loop3.sound;
+    this.successNoise = this.resources.success.sound;
+
+    this.backgroundMusic.play({
+      loop: true
+    });
+  }
+
+  _destroySound() {
+    if(this.backgroundMusic) this.backgroundMusic.stop();
+    this.backgroundMusic = null;
   }
 }
