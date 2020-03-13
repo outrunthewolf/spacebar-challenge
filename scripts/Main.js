@@ -26,16 +26,19 @@ let app = new Application({
   }
 );
 
-// Add the canvas that Pixi automatically created for you to the HTML document
+// Create the view
 container.appendChild(app.view);
+
+// Load the things
+let game = new Game(app, loader);
+let menu = new Menu(app, loader);
+let gameOverMenu = new GameOverMenu(app, loader);
 loader.load(setup);
 
+// Start everything
 function setup() {
 
-  let menu = new Menu(app).render();
-
-  // Dont render the game until we're ready to play
-  let game = new Game(app);
+  menu.render();
 
   // Listen for start game
   document.body.addEventListener("playGame", function(e) {
@@ -49,7 +52,7 @@ function setup() {
   // Listen for game over
   document.body.addEventListener("gameOver", function(e) {
     e.detail.game.destroy();
-    var menu = new GameOverMenu(app, e.detail.score).render();
+    gameOverMenu.render(e.detail.score)
   });
 
   state = play;
