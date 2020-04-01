@@ -39,6 +39,7 @@ loader.load(setup);
 function setup() {
 
   menu.render();
+  let settings = new Settings(app.stage, this, 25, 25).render();
 
   // Listen for start game
   document.body.addEventListener("playGame", function(e) {
@@ -47,12 +48,14 @@ function setup() {
     // Reset in case we're doing a new game
     game.reset();
     game.render();
+    app.stage.sortChildren()
   });
 
   // Listen for game over
   document.body.addEventListener("gameOver", function(e) {
     e.detail.game.destroy();
     gameOverMenu.render(e.detail.score)
+    app.stage.sortChildren()
   });
 
   state = play;

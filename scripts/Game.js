@@ -93,6 +93,9 @@ class Game {
     hand.vy = 0
     bg.addChild(hand)
 
+    // Settings
+    let settings = new Settings(bg, this.loader).render();
+
     // Load controls
     this.space.press = () => {
       if (this.timerActive === false) return false
