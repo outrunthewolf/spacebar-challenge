@@ -1,11 +1,10 @@
-
 // ES6 Class adding a method to the Person prototype
 class Menu {
   constructor(app, loader) {
     this.stage = app.stage;
     this.app = app;
     this.menuHolder = new PIXI.Container();
-    this.resources = PIXI.loader.resources
+    this.resources = PIXI.loader.resources;
     this.loader = loader;
     this.backgroundMusic = null;
 
@@ -33,8 +32,8 @@ class Menu {
       fontSize: 64,
       fill: "white"
     }));
-    gameOverText.x = (menu.width / 2) - (gameOverText.width / 2)
-    gameOverText.y = (menu.height / 2) - 80
+    gameOverText.x = (menu.width / 2) - (gameOverText.width / 2);
+    gameOverText.y = (menu.height / 2) - 80;
     menu.addChild(gameOverText);
 
     // // Lights
@@ -51,17 +50,17 @@ class Menu {
     playButton.beginFill(0xFF9600);
     playButton.drawRect(0, 0, 300, 100);
     playButton.endFill();
-    playButton.x = (menu.width / 2) - (playButton.width / 2)
-    playButton.y = (gameOverText.y + gameOverText.height) + 50
+    playButton.x = (menu.width / 2) - (playButton.width / 2);
+    playButton.y = (gameOverText.y + gameOverText.height) + 50;
     playButton.interactive = true;
     playButton.buttonMode = true;
     playButton.alpha = 0.8;
-    playButton.mouseover = function(e) {
-      playButton.alpha = 1
-    }
-    playButton.mouseout = function(e) {
+    playButton.mouseover = function (e) {
+      playButton.alpha = 1;
+    };
+    playButton.mouseout = function (e) {
       playButton.alpha = 0.8;
-    }
+    };
     menu.addChild(playButton);
 
     var buttonText = new PIXI.Text("Play", new PIXI.TextStyle({
@@ -74,14 +73,14 @@ class Menu {
     playButton.addChild(buttonText);
 
     var that = this;
-    playButton.click = function(e) {
+    playButton.click = function (e) {
       document.body.dispatchEvent(new CustomEvent("playGame", {
         bubbles: true,
         detail: {
           menu: that
         }
       }));
-    }
+    };
   }
 
   destroy() {

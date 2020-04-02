@@ -1,4 +1,3 @@
-
 // ES6 Class adding a method to the Person prototype
 class GameOverMenu {
   constructor(app, loader) {
@@ -8,7 +7,7 @@ class GameOverMenu {
     this.gameOverNoise = null;
     this.loader = loader;
 
-    this.resources = PIXI.loader.resources
+    this.resources = PIXI.loader.resources;
     this.loader.add('buzzer', 'resources/buzzer.mp3');
   }
 
@@ -35,8 +34,8 @@ class GameOverMenu {
       fontSize: 64,
       fill: "white"
     }));
-    gameOverText.x = (menu.width / 2) - (gameOverText.width / 2)
-    gameOverText.y = (menu.height / 2) - 80
+    gameOverText.x = (menu.width / 2) - (gameOverText.width / 2);
+    gameOverText.y = (menu.height / 2) - 80;
     menu.addChild(gameOverText);
 
     var scoreText = new PIXI.Text("You Scored: " + this.score, new PIXI.TextStyle({
@@ -44,8 +43,8 @@ class GameOverMenu {
       fontSize: 34,
       fill: "white"
     }));
-    scoreText.x = (menu.width / 2) - (scoreText.width / 2)
-    scoreText.y = (gameOverText.height / 2) + 100
+    scoreText.x = (menu.width / 2) - (scoreText.width / 2);
+    scoreText.y = (gameOverText.height / 2) + 100;
     menu.addChild(scoreText);
 
     // Play Button
@@ -54,17 +53,17 @@ class GameOverMenu {
     playButton.beginFill(0xFF9600);
     playButton.drawRect(0, 0, 300, 100);
     playButton.endFill();
-    playButton.x = (menu.width / 2) - (playButton.width / 2)
-    playButton.y = (gameOverText.y + gameOverText.height) + 50
+    playButton.x = (menu.width / 2) - (playButton.width / 2);
+    playButton.y = (gameOverText.y + gameOverText.height) + 50;
     playButton.interactive = true;
     playButton.buttonMode = true;
     playButton.alpha = 0.8;
-    playButton.mouseover = function(e) {
-      playButton.alpha = 1
-    }
-    playButton.mouseout = function(e) {
+    playButton.mouseover = function (e) {
+      playButton.alpha = 1;
+    };
+    playButton.mouseout = function (e) {
       playButton.alpha = 0.8;
-    }
+    };
     menu.addChild(playButton);
 
     var buttonText = new PIXI.Text("New Game", new PIXI.TextStyle({
@@ -79,23 +78,23 @@ class GameOverMenu {
     this.gameOverNoise.play();
 
     var that = this;
-    playButton.click = function(e) {
+    playButton.click = function (e) {
       document.body.dispatchEvent(new CustomEvent("playGame", {
         bubbles: true,
         detail: {
           menu: that
         }
       }));
-    }
+    };
   }
 
   destroy() {
     this.menuHolder.destroy();
-    this._destroySound()
+    this._destroySound();
   }
 
   _loadSound() {
-    this.gameOverNoise= this.resources.buzzer.sound;
+    this.gameOverNoise = this.resources.buzzer.sound;
   }
 
   _destroySound() {
